@@ -15,6 +15,12 @@ const config: Config = {
         "slate-grey": "#333333",
         "electric-purple": "#673AB7",
         "charity-red": "#E74C3C",
+        // Hover variants
+        "emerald-green-hover": "#27AE60",
+        "bitcoin-orange-hover": "#E8820F",
+        "electric-purple-hover": "#5E35B1",
+        "charity-red-hover": "#C0392B",
+        "deep-blue-hover": "#004080",
       },
     },
   },
