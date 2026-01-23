@@ -14,12 +14,13 @@ import toast from "react-hot-toast";
 export interface DonateFormProps {
   projectId: number | bigint;
   donationToken: Address;
+  onSuccess?: () => void;
 }
 
 /**
  * DonateForm component for making donations
  */
-export function DonateForm({ projectId, donationToken }: DonateFormProps) {
+export function DonateForm({ projectId, donationToken, onSuccess }: DonateFormProps) {
   const { address, isConnected } = useAccount();
   const [amount, setAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -58,6 +59,7 @@ export function DonateForm({ projectId, donationToken }: DonateFormProps) {
     donate: donateETH,
     isPending: isPendingETH,
     isConfirming: isConfirmingETH,
+    isSuccess: isSuccessETH,
     error: errorETH,
   } = useDonateETH(projectId);
 
@@ -65,12 +67,14 @@ export function DonateForm({ projectId, donationToken }: DonateFormProps) {
     donate: donateERC20,
     isPending: isPendingERC20,
     isConfirming: isConfirmingERC20,
+    isSuccess: isSuccessERC20,
     allowance,
     error: errorERC20,
   } = useDonateERC20(projectId, donationToken);
 
   const isPending = isPendingETH || isPendingERC20 || isConfirmingETH || isConfirmingERC20;
   const donationError = errorETH || errorERC20;
+  const isSuccess = isSuccessETH || isSuccessERC20;
 
   // Display error from hook if present
   useEffect(() => {
@@ -79,6 +83,16 @@ export function DonateForm({ projectId, donationToken }: DonateFormProps) {
       setError(errorMessage);
     }
   }, [donationError]);
+
+  // Handle success - close modal if callback provided
+  useEffect(() => {
+    if (isSuccess && onSuccess) {
+      // Delay to show success message before closing
+      setTimeout(() => {
+        onSuccess();
+      }, 1500);
+    }
+  }, [isSuccess, onSuccess]);
 
   // Validate amount
   const validateAmount = (value: string): string => {

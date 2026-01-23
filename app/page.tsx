@@ -3,12 +3,15 @@
 import { ProjectList } from "@/components/project/ProjectList";
 import { WalletConnect } from "@/components/web3/WalletConnect";
 import { NetworkSwitcher } from "@/components/web3/NetworkSwitcher";
+import { Button } from "@/components/ui/Button";
+import { useUIStore } from "@/stores/uiStore";
 import Link from "next/link";
 
 /**
  * Home page with project listing
  */
 export default function Home() {
+  const { openCreateProjectModal } = useUIStore();
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -43,11 +46,19 @@ export default function Home() {
               Discover and support transparent charity projects on Base
             </p>
           </div>
-          <Link href="/project/create">
-            <button className="px-6 py-2 bg-emerald-green text-white rounded-lg hover:bg-emerald-green-hover transition-colors font-medium">
+          <div className="flex gap-3">
+            <Button
+              variant="primary"
+              onClick={openCreateProjectModal}
+            >
               Create Project
-            </button>
-          </Link>
+            </Button>
+            <Link href="/project/create">
+              <Button variant="secondary">
+                Create Project (Page)
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Project List */}

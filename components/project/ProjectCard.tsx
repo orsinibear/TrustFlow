@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { type Project } from "@/types/contract";
 import { Card, CardBody, CardFooter } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import { formatAddress, formatEther, formatUSDC, formatPercentage } from "@/lib/utils";
 import { isAddress } from "viem";
 import { USDC_ADDRESS } from "@/lib/contract";
+import { useUIStore } from "@/stores/uiStore";
 
 export interface ProjectCardProps {
   project: Project;
@@ -15,6 +17,13 @@ export interface ProjectCardProps {
  * ProjectCard component for displaying project information in a card
  */
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { openDonateModal } = useUIStore();
+
+  const handleDonateClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openDonateModal(project.id);
+  };
   // Calculate progress percentage
   const progressPercentage =
     project.goal > BigInt(0)
@@ -91,10 +100,24 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           </div>
         </CardBody>
-        <CardFooter className="pt-0">
-          <p className="text-xs text-slate-grey opacity-60 text-center w-full">
-            Click to view details
-          </p>
+        <CardFooter className="pt-0 flex gap-2">
+          <Link
+            href={`/project/${project.id}`}
+            className="flex-1"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button variant="secondary" size="sm" fullWidth>
+              View Details
+            </Button>
+          </Link>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleDonateClick}
+            className="flex-1"
+          >
+            Donate
+          </Button>
         </CardFooter>
       </Card>
     </Link>

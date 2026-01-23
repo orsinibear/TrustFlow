@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { NetworkError } from "@/components/web3/NetworkError";
+import { DonateModal } from "@/components/donation/DonateModal";
+import { CreateProjectModal } from "@/components/project/CreateProjectModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +34,8 @@ export default function RootLayout({
         <Providers>
           {children}
           <NetworkError />
+          <DonateModal />
+          <CreateProjectModal />
         </Providers>
       </body>
     </html>
