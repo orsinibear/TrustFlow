@@ -6,7 +6,7 @@
     "homeUrl": "https://tranct.netlify.app",
     "imageUrl": "https://tranct.netlify.app/og-image.png",
     "buttonTitle": "🚀 Track Charity",
-    "splashImageUrl": "https://tranct.netlify.app/logo.png",
+    "splashImageUrl": "https://tranct.netlify.app/splash-screen.png",
     "splashBackgroundColor": "#003366",
     "description": "A transparent blockchain-based charity tracking platform built on Base. Track donations, milestones, and fund releases with full transparency on-chain.",
     "subtitle": "Track donations, milestones, and fund releases",
